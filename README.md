@@ -8,7 +8,7 @@ Investigasi ini berfokus pada sebuah drone hitam matte yang ditemukan setengah t
 ## Alat & Metodologi
 Dalam investigasi ini, berikut ini merupakan alat-alat yang digunakan:
 * **Visual Studio Code**: Digunakan untuk melihat isi struktur data pada file misi `AOTR_Winter_Blackout.plan`.
-* **Ardupilot Web Viewer ([plot.ardupilot.org](https://plot.ardupilot.org/))**: Digunakan untuk visualisasi dari file log `log.bin`.
+* **Python + mavlogdump.py**: Skrip Python dari library MAVLink yang digunakan untuk mengekstrak dan mem-parsing data mentah dari file log biner `log.bin` melalui Command-Line Interface (CLI) PowerShell. Digunakan untuk mengekstrak pesan sistem (MSG), data GPS (GPS), serta mengekspor ke format CSV untuk analisis lebih lanjut. Tautan unduhan diperoleh dari fitur Hint pada Task 7 di platform HackTheBox.
 * **Google Maps**: Digunakan untuk melihat koordinat.
 
 ---

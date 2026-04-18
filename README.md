@@ -108,14 +108,9 @@ Metode ini berhasil menceritakan kronologi akhir drone secara akurat, mulai dari
 3. Memeriksa baris awal (*head/first lines*) dari output GPS sesaat setelah log *ARMED* aktif untuk menemukan koordinat stabil awal.
 **Hasil:**
 Kapasitas kinerja drone selama beroperasi berhasil dipetakan, dan titik awal peluncuran (takeoff) yang menjadi *Indicator of Compromise* utama bagi operasi kepolisian berhasil didapatkan.
-* **Jawaban Task 11 (Max GPS Altitude):** **[Isi Angka Tertinggi Alt] meter** <img width="1284" height="234" alt="image" src="[Link Gambar Pencarian Alt Maksimal]" />
-* **Jawaban Task 12 (Fastest Ground Speed):** **[Isi Angka Tertinggi Spd] m/s** <img width="1284" height="234" alt="image" src="[Link Gambar Pencarian Spd Maksimal]" />
-* **Jawaban Task 13 (Takeoff Coordinates):** **[Isi Lat, Lon Awal Terminal]** <img width="1284" height="234" alt="image" src="[Link Gambar Output Terminal Awal GPS]" />
+* **Jawaban Task 11 (Max GPS Altitude):** **377.07 meter** <img width="1287" height="322" alt="image" src="https://github.com/user-attachments/assets/c346f85e-eb77-4d39-b278-cf0707980b5e" />
 
----
+* **Jawaban Task 12 (Fastest Ground Speed):** **10.24 m/s** <img width="1286" height="304" alt="image" src="https://github.com/user-attachments/assets/7cd13089-9d61-4960-940e-b0f61aaf4a9a" />
 
-## 🏁 Kesimpulan
-Investigasi digital forensik ini berhasil mengungkap bahwa drone dikendalikan dari koordinat **[Jawaban Task 13]** untuk mengintai area **Citadella**. Kegagalan teknis yang menyebabkan drone terjatuh di **Döbrentei tér** telah memberikan artifak krusial bagi kepolisian Budapest untuk melacak jaringan kriminal yang terlibat.
+* **Jawaban Task 13 (Takeoff Coordinates):** **47.4819399, 19.0191600** <img width="1301" height="366" alt="image" src="https://github.com/user-attachments/assets/70d15eee-4309-44d2-8d69-aed2c82948fd" />
 
----
-*Laporan ini disusun oleh Raka Dwi Randika sebagai bagian dari penyelesaian tantangan HackTheBox Sherlock - Advent of The Relics.*

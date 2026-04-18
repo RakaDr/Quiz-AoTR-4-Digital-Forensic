@@ -32,8 +32,17 @@ Dalam investigasi ini, berikut ini merupakan alat-alat yang digunakan :
 
 ## Jawaban
 1. Task 1: Menghitung Total Mission Items
-  Untuk mengetahui total Mission Items yang diprogram pada drone, kita  buka isi file `AOTR_Winter_Blackout.plan` menggunakan vscode. Dengan menghitung titik *Home* (sebagai item awal) dan seluruh objek instruksi yang berada di dalam array `"items"` (dari perintah *Takeoff* hingga *Land*), teridentifikasi bahwa drone tersebut memiliki total **49** *mission items*.
-  <img width="804" height="204" alt="image" src="https://github.com/user-attachments/assets/a5615ff9-118c-4072-9830-dcc64351f3c6" />
+  Melalui analisis struktur JSON pada file `AOTR_Winter_Blackout.plan`, daftar perintah penerbangan terbagi dalam dua komponen utama. Komponen pertama adalah titik referensi Home ("plannedHomePosition") yang dihitung sebagai 1 item awal. Komponen kedua berisi rincian instruksi penerbangan dari Takeoff hingga Land yang terletak di dalam array "items". Berdasarkan parameter urutan eksekusi ("doJumpId"), array tersebut memuat tepat **48** perintah. Jumlah dari kedua data ini (1 titik Home + 48 instruksi operasional) membuktikan secara akurat bahwa drone menjalankan total **49 mission items**.
+<img width="397" height="35" alt="image" src="https://github.com/user-attachments/assets/94c5f59f-ecd1-4f26-a1f9-4a43b694ae27" />
 
-2. 
+<img width="804" height="204" alt="image" src="https://github.com/user-attachments/assets/a5615ff9-118c-4072-9830-dcc64351f3c6" />
+
+2. Task 2: Mengidentifikasi Spline Waypoints
+  Untuk memahami kompleksitas rute yang diprogram, investigasi diarahkan untuk menghitung jumlah spline waypoints pada misi tersebut. Berdasarkan standar protokol MAVLink yang digunakan dalam file `AOTR_Winter_Blackout.plan`, setiap instruksi navigasi untuk belokan melengkung yang halus direpresentasikan oleh kode perintah 82 (MAV_CMD_NAV_SPLINE_WAYPOINT). Analisis dilakukan dengan membuka file rencana misi menggunakan Visual Studio Code dan memanfaatkan fitur pencarian (Ctrl+F) untuk mencari seluruh kemunculan string *"command": 82*. Berdasarkan hasil pencarian tersebut, teridentifikasi bahwa operator menggunakan total **46** spline waypoints guna memastikan drone dapat bermanuver dengan presisi tinggi di area perkotaan Budapest.
+<img width="406" height="39" alt="image" src="https://github.com/user-attachments/assets/5eceb181-de6d-49c8-ac92-5f8cb85a1c50" />
+
+<img width="1485" height="151" alt="image" src="https://github.com/user-attachments/assets/ad7eb7b5-e498-415e-ade3-90d27cb6d6cb" />
+
+
+3. Task 3: Melacak Target Pengintaian Udara (Landmark)
 

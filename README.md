@@ -76,41 +76,41 @@ Rute drone melintasi jembatan ikonik di Budapest sesuai rencana misi.
 ---
 
 ## Fase 2: Telemetry Analysis (.bin)
-Analisis dilakukan dengan mengunggah file `log.bin` ke Ardupilot Web Viewer untuk melihat data sensor aktual saat kejadian.
+Analisis pada fase ini beralih ke tingkat yang lebih *advance* menggunakan pendekatan *Command-Line Interface* (CLI) untuk mengekstrak data mentah dari `log.bin`. Alat utama yang digunakan adalah skrip Python `mavlogdump.py`, yang referensi dan tautan unduhannya saya dapatkan dari fitur *Hint* pada Task 7 di platform HackTheBox.
 
-### **Task 7 - 10: Analisis Crash Event (Telemetri Dinamis)**
+### **Task 7 - 10: Analisis Crash Event (CLI Parsing)**
 **Langkah-langkah:**
-1. Memeriksa panel `Messages` pada file `log.bin` menggunakan Ardupilot Web Viewer untuk mencari *timestamp* saat drone `ARMED` dan saat mengalami `Crash`.
-2. Menyinkronkan nilai `TimeUS` dari pesan Crash tersebut dengan grafik data modul `GPS` (`GPS.Lat`, `GPS.Lng`, dan `GPS.Spd`) tepat pada detik terakhir log terputus.
+1. **Memeriksa Pesan Sistem:** Menjalankan perintah `python mavlogdump.py --types MSG log.bin` di terminal PowerShell. Perintah ini mengekstrak seluruh log kejadian penting. Dari *output* tersebut, ditemukan pesan `Mission: 1 Takeoff` (awal terbang) dan pesan `SIM Hit ground` (momen jatuh).
+2. **Menghitung Waktu Terbang (Task 7):** Menghitung selisih waktu operasional dari momen *Takeoff* hingga momen jatuhnya drone di salju.
+3. **Mencatat Timestamp (Task 8):** Mengambil nilai `TimeUS` yang tertera persis di sebelah pesan `SIM Hit ground`, yaitu **687813098**.
+4. **Mencari Koordinat dan Kecepatan (Task 9 & 10):** Mengeksekusi kueri bersyarat menggunakan perintah `python mavlogdump.py --types GPS --condition "TimeUS >= 687813098" log.bin | Select-Object -First 3`. Perintah ini menyaring data sensor satelit agar hanya menampilkan data `Lat`, `Lng`, dan `Spd` tepat pada detik jatuhnya drone.
+
 **Hasil:**
-Ditemukan log teks yang mengonfirmasi waktu presisi terjadinya kegagalan sistem, beserta data lokasi dan kecepatan darat saat drone menghantam permukaan.
-* **Jawaban Task 7 (Total Flight Time):** **17 menit 55 detik** <img width="1284" height="234" alt="image" src="[Masukkan Link Gambar Bukti Waktu Armed ke Crash]" />
+Metode ini berhasil menceritakan kronologi akhir drone secara akurat, mulai dari waktu kejadian, lokasi, hingga energi kinetik saat hantaman terjadi.
+* **Jawaban Task 7 (Total Flight Time):** **00:10:38.919** <img width="1294" height="360" alt="image" src="https://github.com/user-attachments/assets/bfb73716-b7aa-4d18-9890-190777acbf6d" />
 
-* **Jawaban Task 8 (Crash TimeUS):** **1090427977** <img width="1296" height="249" alt="image" src="[Masukkan Link Gambar Pesan Crash: Crash]" />
+* **Jawaban Task 8 (Crash TimeUS):** **687813098** <img width="1302" height="320" alt="image" src="https://github.com/user-attachments/assets/83f0ecbf-ba5e-4108-b6ea-5924011278bc" />
 
-* **Jawaban Task 9 (Crash Coordinates):** **[Isi Lat, Lon dari grafik GPS]** <img width="1284" height="234" alt="image" src="[Masukkan Link Gambar Kursor di Ujung Grafik Lat Lng]" />
+* **Jawaban Task 9 (Crash Coordinates):** **47.4903055, 19.0460476** <img width="1313" height="341" alt="image" src="https://github.com/user-attachments/assets/85e3bfc7-e2ba-4537-824a-468771725ddf" />
 
-* **Jawaban Task 10 (Impact Speed):** **[Isi Kecepatan dari GPS.Spd] m/s** <img width="1284" height="234" alt="image" src="[Masukkan Link Gambar Kursor di Ujung Grafik Spd]" />
+* **Jawaban Task 10 (Impact Speed):** **12.93254 m/s** <img width="1317" height="342" alt="image" src="https://github.com/user-attachments/assets/c4bebda3-c9df-401a-b190-9c926d192811" />
 
-* **Evidence:** <img width="942" height="800" alt="image" src="[Masukkan Link Gambar Keseluruhan Layar Ardupilot Web Viewer]" />
 
-### **Task 11 - 12: Metrik Performa Terbang**
+* **Evidence:** <img width="882" height="469" alt="image" src="https://github.com/user-attachments/assets/a751d248-efe1-423c-8fb9-316149e1945b" />
+  <img width="656" height="869" alt="image" src="https://github.com/user-attachments/assets/b74c6e29-c584-4eaa-ab33-65c5a6ed7da0" />
+  <img width="1655" height="110" alt="image" src="https://github.com/user-attachments/assets/f5d5f2c1-7aac-4c54-8d10-86fd913e4bbf" />
+
+
+### **Task 11 - 13: Performa Maksimal & Titik Lepas Landas**
 **Langkah-langkah:**
-1. Memeriksa grafik `GPS.Alt` (ketinggian) dan `GPS.Spd` (kecepatan).
+1. Mengonversi data sensor GPS ke dalam format *Comma Separated Values* dengan mengeksekusi `python mavlogdump.py --types GPS --format csv log.bin > gps_data.csv`. 
+2. Melakukan *sorting* pada *dataset* tersebut untuk mencari puncak nilai (*peak values*) pada kolom `Alt` dan `Spd`.
+3. Memeriksa baris awal (*head/first lines*) dari output GPS sesaat setelah log *ARMED* aktif untuk menemukan koordinat stabil awal.
 **Hasil:**
-* **Max Altitude (Task 11):** [Isi Nilai Tertinggi Alt] meter.
-* **Max Ground Speed (Task 12):** [Isi Nilai Tertinggi Spd] m/s.
-**Evidence:**
-![Screenshot Grafik Alt/Spd]
-
-### **Task 13: Melacak Lokasi Lepas Landas (Takeoff)**
-**Langkah-langkah:**
-1. Melihat koordinat GPS pada saat pertama kali status drone berubah menjadi `Armed` atau saat ketinggian mulai naik.
-**Hasil:**
-Koordinat ini menjadi titik krusial bagi kepolisian untuk melakukan penggerebekan basis operator.
-* **Jawaban:** [Isi Lat, Lon Takeoff]
-* **Evidence:**
-![Screenshot Takeoff Coordinates]
+Kapasitas kinerja drone selama beroperasi berhasil dipetakan, dan titik awal peluncuran (takeoff) yang menjadi *Indicator of Compromise* utama bagi operasi kepolisian berhasil didapatkan.
+* **Jawaban Task 11 (Max GPS Altitude):** **[Isi Angka Tertinggi Alt] meter** <img width="1284" height="234" alt="image" src="[Link Gambar Pencarian Alt Maksimal]" />
+* **Jawaban Task 12 (Fastest Ground Speed):** **[Isi Angka Tertinggi Spd] m/s** <img width="1284" height="234" alt="image" src="[Link Gambar Pencarian Spd Maksimal]" />
+* **Jawaban Task 13 (Takeoff Coordinates):** **[Isi Lat, Lon Awal Terminal]** <img width="1284" height="234" alt="image" src="[Link Gambar Output Terminal Awal GPS]" />
 
 ---
 

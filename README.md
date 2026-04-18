@@ -9,7 +9,7 @@ Investigasi ini berfokus pada sebuah drone hitam matte yang ditemukan setengah t
 Dalam investigasi ini, berikut ini merupakan alat-alat yang digunakan:
 * **Visual Studio Code**: Digunakan untuk melihat isi struktur data pada file misi `AOTR_Winter_Blackout.plan`.
 * **Ardupilot Web Viewer ([plot.ardupilot.org](https://plot.ardupilot.org/))**: Digunakan untuk visualisasi dari file log `log.bin`.
-* **Google Maps**: Digunakan melihat koordinat.
+* **Google Maps**: Digunakan untuk melihat koordinat.
 
 ---
 
@@ -23,17 +23,17 @@ Analisis dilakukan pada file rencana misi untuk memahami instruksi yang diberika
 3. Menghitung jumlah objek di dalam array `mission.items`.
 **Hasil:**
 Terdapat 1 titik Home dan 48 instruksi operasional (Takeoff hingga Land).
-* **Jawaban :** **49 Mission Items**
+* **Jawaban :** **49 Mission Items** <img width="1294" height="242" alt="image" src="https://github.com/user-attachments/assets/86ed9aa2-bf6c-48d8-a61a-30b62b4c40bb" />
 * **Evidence :** <img width="402" height="58" alt="image" src="https://github.com/user-attachments/assets/4fd9d2e2-9ca9-4ace-9a9b-fe239d787e5d" />
-<img width="1294" height="242" alt="image" src="https://github.com/user-attachments/assets/86ed9aa2-bf6c-48d8-a61a-30b62b4c40bb" />
+  <img width="1294" height="242" alt="image" src="https://github.com/user-attachments/assets/86ed9aa2-bf6c-48d8-a61a-30b62b4c40bb" />
 
 
 
 ### **Task 2: Mengidentifikasi Spline Waypoints**
 **Langkah-langkah:**
-1. [cite_start]Melakukan pencarian string `"command": 82` pada file `.plan`[cite: 1]. Kode 82 merupakan standar MAVLink untuk `MAV_CMD_NAV_SPLINE_WAYPOINT`.
+1. Melakukan pencarian string `"command": 82` pada file `.plan`[cite: 1]. Kode 82 merupakan standar MAVLink untuk `MAV_CMD_NAV_SPLINE_WAYPOINT`.
 **Hasil:**
-[cite_start]Ditemukan 46 kemunculan instruksi spline waypoint yang dirancang untuk pergerakan halus di area perkotaan[cite: 1].
+Ditemukan 46 kemunculan instruksi spline waypoint yang dirancang untuk pergerakan halus di area perkotaan.
 * **Jawaban:** **46 Spline Waypoints**
 * **Evidence:**
 ![Screenshot Command 82 Search]
